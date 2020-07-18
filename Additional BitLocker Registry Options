@@ -1,0 +1,17 @@
+# Create Registry Subkey
+New-Item -Path "HKLM:\Software\Policies\Microsoft" -name FVE
+
+# Validate that Subkey is created
+Test-Path "HKLM:\Software\Policies\Microsoft\FVE"
+
+# Create registry parameter or Value Name with BLTG disabled
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\FVE" -Name "RDVAllowBDE" -Value "0" -PropertyType "DWORD"
+
+# Turn BLTG ON
+Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\FVE" -Name "RDVAllowBDE" -Value "1"
+
+# Turn BLTG OFF
+Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\FVE" -Name "RDVAllowBDE" -Value "0"
+
+# Get value of registry key and parameter or value name
+Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\FVE" -Name "RDVAllowBDE"
